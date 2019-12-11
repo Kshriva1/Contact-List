@@ -8,6 +8,12 @@ const app = express();
 const routeAdmin = require('./routes/admin');
 const routeUser =  require('./routes/user');
 
+mongoose.connect("mongodb://localhost:27017/contactlist",{ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+
+mongoose.connection.on("connected",() => {
+    console.log("Connected to mongodb @ 27017")
+})
+
 const port = 3000;
 app.use(bodyparser.json());
 app.use(cors());

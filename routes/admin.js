@@ -17,8 +17,12 @@ router.delete('/delete',(req,res) => {
     console.log('view')
 })
 
-router.get('/login',(req,res) => {
+router.put('/update/roles',(req,res) => {
     console.log('view')
+})
+
+router.get('/login',(req,res) => {
+    
 })
 
 module.exports = router;
