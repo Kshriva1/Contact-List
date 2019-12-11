@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-
-const UserSchema = mongoose.Schema({
+const adminVerUserSchema = mongoose.Schema({
     name:{
         type:String,
         required: true
@@ -11,12 +10,9 @@ const UserSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    roles: [
-    {
-        type:String,
-        required:true
-    }
-   ]
+    password:{
+        type:String
+    } 
 })
 
-const User = module.exports = mongoose.model('User',UserSchema)
+const adminVerUser = module.exports = mongoose.model('adminVerUser',adminVerUserSchema)
