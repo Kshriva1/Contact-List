@@ -14,6 +14,12 @@ mongoose.connection.on("connected",() => {
     console.log("Connected to mongodb @ 27017")
 })
 
+mongoose.connection.on("error",(err) => {
+    if(err){
+        console.log("Error in mongodb connection: " + err)
+    }
+})
+
 const port = 3000;
 app.use(bodyparser.json());
 app.use(cors());

@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const Contacts = require('../models/contacts');
 
-router.get('/view',(req,res) => {
-    console.log('view')
+
+router.get('/view',async(req,res) => {
+    try{
+        const contacts = await Contacts.find();
+        res.json(contacts)
+      } catch(err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+      }
 })
 
 router.post('/create',(req,res) => {
