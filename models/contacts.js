@@ -9,6 +9,10 @@ const ContactSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    user: {
+        type:String,
+        required:true
     }
 })
 
