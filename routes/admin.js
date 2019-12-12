@@ -16,15 +16,17 @@ router.get('/view',async(req,res) => {
 router.post('/create',async (req,res) => {
     const { name,email,roles } = req.body;
     try{
-        const user  = await User.findOne({email});
+        
+        let user  = await User.findOne({email});
         if(user){
             return res.status(400).send("User already exists");
         }
         user = new User({
-            name,
-            email,
-            roles
+            name:name,
+            email:email,
+            roles:roles
         })
+        
 
         await user.save();
         res.json(user);
@@ -34,27 +36,54 @@ router.post('/create',async (req,res) => {
     }
 })
 
-router.put('/update',(req,res) => {
-    console.log('view')
+router.put('/update/:id',async (req,res) => {
+    const { name,email,roles } = req.body;
+    
+    try {
+        const user  = await User.findOne({_id:req.params.id});
+        if(!user){
+            return res.status(400).send("User does not exists");
+        } else{
+            user.name = name;
+            user.email = email;
+            user.roles = roles;
+        await user.save();
+        res.json(user);
+        }
+    } catch(err){
+        console.error(err);
+        res.status(500).send('Server Error')
+    }
 })
 
-router.delete('/delete',(req,res) => {
-    console.log('view')
-})
-
-router.put('/update/roles',(req,res) => {
-    console.log('view')
+router.delete('/delete/:id',async (req,res) => {
+    try{
+    const user = await User.findOneAndDelete({_id:req.params.id});
+    if(!user){
+        return res.status(500).send("cannot delete")
+    } else{
+        res.json(user)
+    }
+} catch(err){
+    console.error(err);
+    res.status(500).send("Server Error");
+}
+    // User.findOneAndDelete({_id:req.params.id}, function(err,result){
+    //     if(err){
+    //         res.status(500).send("Server Error")
+    //     } else if(result) {
+    //         res.json(result)
+    //     }
+    // })
 })
 
 router.get('/login',async(req,res) => {
     const {username,password} = req.body;
     try {
         if(username === 'admin'){
-         const salt = await bcrypt.genSalt(10);
-         const adminPassword = await bcrypt.hash('admin',salt); 
-         const isMatch = await bcrypt.compare(password,adminPassword);
-         if(!isMatch){
-             return res.json(400).message('Invalid Credentials');
+        
+         if(!(password==="admin")){
+             return res.json(400).send('Invalid Credentials');
          } else {
              const admin = {
                  username: username,
@@ -63,12 +92,12 @@ router.get('/login',async(req,res) => {
              res.json(admin);
          }
         } else {
-            return res.json(400).message('Invalid Credentials');
+            return res.json(400).send('Invalid Credentials');
         } 
 
     }catch(err){
-        console.error(error);
-        res.status(500).message('Server Error')
+        console.error(err);
+        res.status(500).send('Server Error')
     }
     
 })

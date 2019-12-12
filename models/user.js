@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const UserSchema = mongoose.Schema({
+let UserSchema = mongoose.Schema({
     name:{
         type:String,
         required: true
@@ -13,8 +13,7 @@ const UserSchema = mongoose.Schema({
     },
     roles: [
     {
-        type:String,
-        required:true
+        type:String
     }
    ]
 })
