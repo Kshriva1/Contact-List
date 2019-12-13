@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Login For Admin</h1><br>
+        <form [formGroup]="loginAdmin">
+            <div class="form-group">
+                <label for="UserName">UserName</label>
+                <input type='text' id="username" class="form-control" 
+                [ngClass] = "{'is-invalid':loginAdmin.get('username').touched && loginAdmin.get('username').invalid}" formControlName="username" >
+                <span class="invalid-feedback">Username cannot be blank</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" [ngClass] = "{'is-invalid': loginAdmin.get('password').touched && loginAdmin.get('password').invalid}"
+                formControlName="password">
+                <span class="invalid-feedback">Password cannot be blank</span>
+            </div>
+            <button (click)="handleSubmit()" class="btn btn-primary btn-lg btn-block">Login</button><br>
+            <span><button routerLink="/loginUser" class="btn btn-info btn-small">Login as a User</button>  <button routerLink='/registerUser' style="margin-left:45px" class="btn btn-info btn-small">Register as a User</button></span>
+        </form>
+    </div>
+</div>

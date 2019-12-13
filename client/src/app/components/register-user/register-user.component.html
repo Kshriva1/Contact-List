@@ -1,0 +1,35 @@
+<div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Register For User</h1><br>
+            <form [formGroup]="registerUser">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type='name' id="name" class="form-control" 
+                    [ngClass] = "{'is-invalid':registerUser.get('name').touched && registerUser.get('name').invalid}" formControlName="name" >
+                    <span class="invalid-feedback">Name cannot be blank</span>
+                </div>
+                <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type='email' id="email" class="form-control" 
+                        [ngClass] = "{'is-invalid':registerUser.get('email').touched && registerUser.get('email').invalid}" formControlName="email" >
+                        <span class="invalid-feedback">Email cannot be blank</span>
+                    </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" [ngClass] = "{'is-invalid': registerUser.get('password').touched && registerUser.get('password').invalid}"
+                    formControlName="password">
+                    <span class="invalid-feedback">Password cannot be blank</span>
+                </div>
+                <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" [ngClass] = "{'is-invalid': registerUser.get('confirmPassword').touched && registerUser.get('confirmPassword').invalid}"
+                        formControlName="confirmPassword">
+                        <span class="invalid-feedback">Password and Confirm Password should Match</span>
+                    </div>
+                <button (click)="handleSubmit()" class="btn btn-primary btn-lg btn-block">Register</button><br>
+                <span><button routerLink="/loginAdmin" class="btn btn-info btn-small">Login as an Admin</button>  <button routerLink='/loginUser' style="margin-left:23px" class="btn btn-info btn-small">Login as a User</button></span>
+            </form>
+        </div>
+    </div>
+    
+
