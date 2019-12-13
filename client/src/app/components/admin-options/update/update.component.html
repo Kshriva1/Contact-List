@@ -1,0 +1,35 @@
+<div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Update User</h1><br>
+            <form [formGroup]="updateUser">
+                    <div class="form-group">
+                            <label for="UserName">Enter the name of the user you want to update</label>
+                            <input type='text' id="oldname" class="form-control" 
+                            [ngClass] = "{'is-invalid':updateUser.get('oldname').touched && updateUser.get('oldname').invalid}" formControlName="oldname" >
+                            <span class="invalid-feedback">This field cannot be blank</span>
+                        </div>
+                    <div class="form-group">
+                            <label for="UserName">Enter the new name</label>
+                            <input type='text' id="name" class="form-control" 
+                            [ngClass] = "{'is-invalid':updateUser.get('name').touched && updateUser.get('name').invalid}" formControlName="name" >
+                            <span class="invalid-feedback">This field cannot be blank</span>
+                        </div>
+                <div class="form-group">
+                    <label for="email">Enter the new Email</label>
+                    <input type="email" id="email" class="form-control" [ngClass] = "{'is-invalid': updateUser.get('email').touched && updateUser.get('email').invalid}"
+                    formControlName="email">
+                    <span class="invalid-feedback">Email cannot be blank</span>
+                </div>
+                <div class="form-group">
+                        <label for="roles">Enter the new Roles(can enter multiple seperated by commas)</label>
+                        <input type="text" id="roles" class="form-control" [ngClass] = "{'is-invalid': updateUser.get('roles').touched && updateUser.get('roles').invalid}"
+                        formControlName="roles">
+                        <span class="invalid-feedback">Roles cannot be blank</span>
+                    </div>
+                <button (click)="handleSubmit()" class="btn btn-primary btn-lg btn-block">Update User</button><br>
+            </form>
+        </div>
+    </div>
+    
+
+

@@ -1,0 +1,17 @@
+<div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Delete Contact</h1><br>
+            <form [formGroup]="deleteContact">
+                <div class="form-group">
+                    <label for="phone">Phone-Number of the contact you want to delete</label>
+                    <input type="tel" id="phone" class="form-control" [ngClass] = "{'is-invalid': deleteContact.get('phone').touched && deleteContact.get('phone').invalid}"
+                    formControlName="phone">
+                    <span class="invalid-feedback">Phone-Number cannot be blank</span>
+                </div>
+                <button (click)="handleSubmit()" class="btn btn-primary btn-lg btn-block">Delete Contact</button><br>
+            </form>
+        </div>
+    </div>
+    
+
+

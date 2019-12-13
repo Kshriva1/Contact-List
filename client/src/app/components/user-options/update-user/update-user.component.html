@@ -1,0 +1,30 @@
+<div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Update Contact</h1><br>
+            <form [formGroup]="updateContact">
+                    <div class="form-group">
+                            <label for="ContactOldName">Enter the name of the contact you want to update</label>
+                            <input type='text' id="oldname" class="form-control" 
+                            [ngClass] = "{'is-invalid':updateContact.get('oldname').touched && updateContact.get('oldname').invalid}" formControlName="oldname" >
+                            <span class="invalid-feedback">This field cannot be blank</span>
+                        </div>
+                    <div class="form-group">
+                            <label for="ContactNewName">Enter the new name</label>
+                            <input type='text' id="name" class="form-control" 
+                            [ngClass] = "{'is-invalid':updateContact.get('name').touched && updateContact.get('name').invalid}" formControlName="name" >
+                            <span class="invalid-feedback">This field cannot be blank</span>
+                        </div>
+                        <div class="form-group">
+                                <label for="phone">Enter the new Phone-Number</label>
+                                <input type="tel" id="phone" class="form-control" [ngClass] = "{'is-invalid': updateContact.get('phone').touched && updateContact.get('phone').invalid}"
+                                formControlName="phone">
+                                <span class="invalid-feedback">Phone-Number cannot be blank</span>
+                            </div>
+                <button (click)="handleSubmit()" class="btn btn-primary btn-lg btn-block">Update Contact</button><br>
+            </form>
+        </div>
+    </div>
+    
+
+
+
