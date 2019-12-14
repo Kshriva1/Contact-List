@@ -1,1 +1,18 @@
-<p>view works!</p>
+<h1>User Details</h1>
+<table style="width:100px">
+        <thead>
+            <tr>
+                <th>Name</th>&nbsp;
+                <th>Email</th>&nbsp;
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let d of data">
+            <tr>
+                <td>{{d.name}}</td>&nbsp;
+                <td>{{d.email}}</td>&nbsp;
+                <td>{{d.roles}}</td>
+            </tr>
+        </tbody>
+    
+    </table>

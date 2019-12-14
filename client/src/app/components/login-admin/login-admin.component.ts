@@ -12,6 +12,7 @@ export class LoginAdminComponent implements OnInit {
 
   model: any = {};
   loginAdmin: FormGroup
+  message: string
   constructor(private builder: FormBuilder,
               private router: Router,
               private authService: AuthService) { }
@@ -31,6 +32,10 @@ export class LoginAdminComponent implements OnInit {
     this.model.username = this.loginAdmin.get('username').value;
     this.model.password = this.loginAdmin.get('password').value;
     this.authService.login(this.model).subscribe(data => {
+      if(!data.username){
+        this.message = "Login Failed"
+        return;
+      }
       localStorage.setItem('admin',data.username);
       this.router.navigate(['/adminOptions'])
     })

@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.remove('admin')
+    localStorage.removeItem('admin')
   }
 
   getAdmin(){

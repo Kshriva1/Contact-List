@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-view',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewComponent implements OnInit {
 
-  constructor() { }
+  data: any[] = [];
+  constructor(private router: Router,
+              private adminService: AdminService) { }
 
   ngOnInit() {
+    this.adminService.view().subscribe(data => {
+      this.data = data;
+    })
+
   }
 
 }
