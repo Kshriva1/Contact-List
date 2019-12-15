@@ -27,7 +27,7 @@ export class UpdateUserComponent implements OnInit {
 
   buildForm(){
     this.updateContact = this.builder.group({
-      oldname:['',Validators.required],
+      oldphone:['',Validators.required],
       name:['',Validators.required],
       phone:['',Validators.required]
     })
@@ -47,8 +47,8 @@ export class UpdateUserComponent implements OnInit {
               this.userService.view(this.localUser).subscribe(resp => {
                 this.contactsOfUser = resp;
                 for(let k=0;k<this.contactsOfUser.length;k++){
-                  if(this.contactsOfUser[k].name === this.updateContact.get('oldname').value){
-                    this.userService.update(this.contactsOfUser[j]._id, this.data).subscribe(res => {
+                  if(this.contactsOfUser[k].phone === this.updateContact.get('oldphone').value){
+                    this.userService.update(this.contactsOfUser[k]._id, this.data).subscribe(res => {
                       if(res.name){
                         this.message = "Contact updated successfully"
                         return;

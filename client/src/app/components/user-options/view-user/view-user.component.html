@@ -1,16 +1,22 @@
 <h1>Contact Details</h1>
-<table style="width:100px">
+<table *ngIf="viewUsers.length > 0 else err"  style="width:100px">
         <thead>
             <tr>
                 <th style="padding: 0px 15px">Name</th>
                 <th style="padding: 0px 15px">Phone Number</th>
             </tr>
         </thead>
-        <tbody *ngFor="let user of users">
+        <tbody *ngFor="let user of viewUsers">
             <tr>
                 <td style="padding: 0px 15px">{{user.name}}</td>
                 <td style="padding: 0px 15px">{{user.phone}}</td>
             </tr>
         </tbody>
-    
+      
     </table>
+
+    <ng-template #err>
+        <br>
+        <h1 style="text-align:center">{{message}}</h1>
+    </ng-template>
+

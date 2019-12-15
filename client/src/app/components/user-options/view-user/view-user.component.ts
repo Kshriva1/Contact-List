@@ -13,6 +13,7 @@ export class ViewUserComponent implements OnInit {
   message: string;
   users: any[] = [];
   data: any = {};
+  viewUsers: any[] = [];
 
   constructor(private router: Router,
     private adminService: AdminService,
@@ -27,7 +28,8 @@ export class ViewUserComponent implements OnInit {
           for(let j=0;j<this.users[i].roles.length;j++){
             if(this.users[i].roles[j].toLowerCase() === 'view'){
               this.userService.view(this.data).subscribe(res => {
-                this.users = res;
+                console.log("here")
+                this.viewUsers = res;
                 return;
               },err =>{
                 this.message = "Failed to show contact"
@@ -35,7 +37,7 @@ export class ViewUserComponent implements OnInit {
               })
             }
           }
-          this.message = "You do not have permission to view contact information"
+          this.message = "You do not have permission to view contact information or you have no contacts to view"
         }
       }
     })
