@@ -34,12 +34,12 @@ export class CreateComponent implements OnInit {
     this.data.email = this.createUser.get('email').value;
     this.data.roles = this.roles;
     this.adminService.create(this.data).subscribe(data => {
-      console.log(data);
-      if(!data.name){
-        this.message = "Failed to create user"
-        return;
+      if(data.name){
+        this.message = "User Created Successfully"
       }
-      this.message = "User Created Successfully"
+      
+    }, err => {
+      this.message = "User not created"
     })
   }
 

@@ -1,0 +1,16 @@
+<h1>Contact Details</h1>
+<table style="width:100px">
+        <thead>
+            <tr>
+                <th style="padding: 0px 15px">Name</th>
+                <th style="padding: 0px 15px">Phone Number</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of users">
+            <tr>
+                <td style="padding: 0px 15px">{{user.name}}</td>
+                <td style="padding: 0px 15px">{{user.phone}}</td>
+            </tr>
+        </tbody>
+    
+    </table>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthUserService } from '../../services/auth-user.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-register-user',
@@ -7,9 +10,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-
+  message: string;
+  users: any[] = [];
+  data: any = {};
   registerUser: FormGroup;
-  constructor(private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder,
+              private router: Router,
+              private authUserService: AuthUserService,
+              private adminService: AdminService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -34,7 +42,35 @@ export class RegisterUserComponent implements OnInit {
   }
 
   handleSubmit(){
-    
+    if(this.registerUser.get('password').value !== this.registerUser.get('confirmPassword').value){
+      this.message = "Password and Confirm Password do not match"
+      return;
+    }
+    this.data.name = this.registerUser.get('name').value
+    this.data.email = this.registerUser.get('email').value
+    this.data.password = this.registerUser.get('password').value
+    this.adminService.view().subscribe(data => {
+      this.users = data;
+      for(let i=0;i<this.users.length;i++){
+        if(this.users[i].name === this.data.name){
+          if(this.users[i].email === this.data.email){
+            this.authUserService.register(this.data).subscribe(res => {
+              console.log(res);
+              if(res.name){
+                localStorage.setItem('user',this.data.name)
+                this.router.navigate(['/userOptions'])
+              } 
+              
+            },err => {
+              this.message = "Registration unsuccessful"
+              return;
+            })
+          }
+        }
+      }
+      this.message = "Record not found";
+    })
+
   }
 
 }

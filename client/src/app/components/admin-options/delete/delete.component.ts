@@ -39,6 +39,7 @@ export class DeleteComponent implements OnInit {
           })
         }
       }
+    },err => {
       this.message = "User Not Deleted"
     })
   }

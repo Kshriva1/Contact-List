@@ -25,7 +25,7 @@ export class AdminService {
       return this.http.get<any[]>('http://localhost:3000/api/admin/view')
     }
 
-    update(id,data:any):Observable<any>{
+    update(id,data:any):Observable<any>{ 
       const headers = new HttpHeaders()
     .set('Authorization', 'my-auth-token')
     .set('Content-Type', 'application/json');

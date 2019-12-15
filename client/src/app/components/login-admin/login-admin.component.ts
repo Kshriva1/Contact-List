@@ -32,12 +32,12 @@ export class LoginAdminComponent implements OnInit {
     this.model.username = this.loginAdmin.get('username').value;
     this.model.password = this.loginAdmin.get('password').value;
     this.authService.login(this.model).subscribe(data => {
-      if(!data.username){
-        this.message = "Login Failed"
-        return;
+      if(data.username){
+        localStorage.setItem('admin',data.username);
+        this.router.navigate(['/adminOptions'])
       }
-      localStorage.setItem('admin',data.username);
-      this.router.navigate(['/adminOptions'])
+    },err => {
+      this.message = "Login Failed"
     })
   }
 
