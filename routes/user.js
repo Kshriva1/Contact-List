@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Contact = require('../models/contacts');
+const Correction = require('../models/new');
 const bcrypt = require('bcryptjs');
 const AdminVerUser = require('../models/adminVerUser');
 
 
-router.get('/view',async(req,res) => {
+router.post('/view',async(req,res) => {
     const { user } = req.body;
     try{
-        const contacts = await Contact.find({user});
+        const contacts = await Correction.find({user});
         res.json(contacts)
       } catch(err){
         console.error(err.message);
@@ -17,21 +17,24 @@ router.get('/view',async(req,res) => {
 })
 
 router.post('/create',async (req,res) => {
-    const { name,phone_number,user } = req.body;
+    const { name,phone,user } = req.body;
     try{
-        let contact = await Contact.findOne({phone_number,user});
+        console.log(name,phone,user)
+        console.log("here");
+        let contact = await Correction.findOne({phone,user});
         if(contact){
             return res.status(400).send("Contact already exists");
         } else{
-           contact = new Contact({
+            console.log("now error")
+           contact = new Correction({
                name,
-               phone_number,
+               phone,
                user
            }) 
 
+           console.log(contact)
            await contact.save();
            res.json(contact);
-
         }
     }catch(err){
         console.error(err);
@@ -40,14 +43,14 @@ router.post('/create',async (req,res) => {
 })
 
 router.put('/update/:id',async (req,res) => {
-    const { name,phone_number } = req.body;
+    const { name,phone } = req.body;
     try{
-        const contact = await Contact.findOne({_id:req.params.id});
+        const contact = await Correction.findOne({_id:req.params.id});
         if(!contact){
             return res.status(400).send("Contact does not exists");
         }
         contact.name = name;
-        contact.phone_number = phone_number;
+        contact.phone = phone;
         await contact.save()
         res.json(contact);
     } catch(err){
@@ -58,7 +61,7 @@ router.put('/update/:id',async (req,res) => {
 
 router.delete('/delete/:id',async (req,res) => {
     try{
-        const contact = await Contact.findOneAndDelete({_id:req.params.id})
+        const contact = await Correction.findOneAndDelete({_id:req.params.id})
         if(!contact){
             return res.status(400).send('Could not delete contact information');
         }
@@ -80,16 +83,17 @@ router.get('/getUsers',async(req,res) => {
       }
 })
 
-router.get('/login',async (req,res) => {
+router.post('/login',async (req,res) => {
     const { email,password } = req.body;
     try{
         const user = await AdminVerUser.findOne({email});
         if(!user){
             return res.status(400).send('Invalid Credentials');
         }
-        console.log(password)
-        console.log(user.password);
-        if(!(password === user.password)){
+        
+        const isMatch = await bcrypt.compare(password,user.password);
+    
+        if(!isMatch){
             return res.status(400).send('Invalid Match');
         }
             res.json(user);

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
+const AdminVerUser = require('../models/adminVerUser');
 
 router.get('/view',async(req,res) => {
    try{
@@ -62,6 +63,7 @@ router.delete('/delete/:id',async (req,res) => {
     if(!user){
         return res.status(500).send("cannot delete")
     } else{
+        await AdminVerUser.findOneAndDelete({email:user.email});
         res.json(user)
     }
 } catch(err){
@@ -77,13 +79,13 @@ router.delete('/delete/:id',async (req,res) => {
     // })
 })
 
-router.get('/login',async(req,res) => {
+router.post('/login',async(req,res) => {
     const {username,password} = req.body;
     try {
         if(username === 'admin'){
         
          if(!(password==="admin")){
-             return res.json(400).send('Invalid Credentials');
+             return res.status(400).send('Invalid Credentials');
          } else {
              const admin = {
                  username: username,
@@ -92,7 +94,7 @@ router.get('/login',async(req,res) => {
              res.json(admin);
          }
         } else {
-            return res.json(400).send('Invalid Credentials');
+            return res.status(400).send('Invalid Credentials');
         } 
 
     }catch(err){

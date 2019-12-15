@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ContactsSchema = mongoose.Schema({
+const CorrectionSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -16,4 +16,4 @@ const ContactsSchema = mongoose.Schema({
     }
 })
 
-const Contacts = module.exports = mongoose.model('Contacts',ContactsSchema);
+const Correction = module.exports = mongoose.model('Correction',CorrectionSchema);
